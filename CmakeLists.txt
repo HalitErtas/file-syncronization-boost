@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.16)
+project(FileSyncBoost CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
+find_package(Boost REQUIRED COMPONENTS filesystem thread)
+
+include_directories(include)
+set(SOURCES
+    src/main.cpp
+    src/FileScanner.cpp
+    src/DirectoryComparer.cpp
+)
+
+add_executable(FileSyncBoost ${SOURCES})
+
+target_include_directories(FileSyncBoost PRIVATE
+    include
+)
+
+target_link_libraries(FileSyncBoost PRIVATE
+    Boost::filesystem
+    Boost::thread
+)
