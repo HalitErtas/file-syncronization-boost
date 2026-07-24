@@ -30,4 +30,7 @@ Makefile
 # Logs
 *.log
 
+# clangd cache
+.cache/
+
 test-files/
