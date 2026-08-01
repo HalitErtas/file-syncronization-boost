@@ -17,7 +17,6 @@ A modern C++17 desktop application for comparing and synchronizing directories u
 - Qt6 Widgets
 - CMake
 - OpenSSL
-- Boost
 - std::filesystem
 
 ## Architecture
