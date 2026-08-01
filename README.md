@@ -1,63 +1,82 @@
 # File Synchronization Boost
 
-A C++17 desktop application for comparing and synchronizing directories.
 
-## Features
+A modern C++17 desktop application for comparing and synchronizing directories using Qt6.
 
-* Scan files and directories
-* Compare two directories
-* Detect:
+![C++](https://img.shields.io/badge/C%2B%2B-17-blue)
+![Qt](https://img.shields.io/badge/Qt-6-green)
+![CMake](https://img.shields.io/badge/CMake-Build-red)
 
-  * Added files
-  * Removed files
-  * Unchanged files
-* Built with modern C++17 and CMake
+## Screenshot
+
+![Main Window](docs/images/main-window.png)
+
+## Technologies
+
+- C++17
+- Qt6 Widgets
+- CMake
+- OpenSSL
+- Boost
+- std::filesystem
+
+## Architecture
+
+The project is divided into two main parts:
+
+- FileSyncCore
+  - File scanning
+  - Directory comparison
+  - Synchronization logic
+
+- GUI
+  - Qt Widgets interface
+  - Progress bar
+  - Background worker
+
+### Synchronization
+
+- Copy new files
+- Remove deleted files
+- Update modified files
+
+## Supported Operations
+
+Scan directories
+Compare directories
+Detect added files
+Detect removed files
+Detect modified files
+Detect unchanged files
+Synchronize directories
+GUI
+Background worker
+
+## Requirements
+
+- CMake 3.20+
+- C++17 compiler
+- Qt6
+- Boost
+- OpenSSL
+
+## Getting Started
+
+git clone <https://github.com/HalitErtas/file-syncronization.git>
+
+cd file-sync
+
+make
+
+make run
 
 ## Project Structure
 
-```
-
-include/
-├── DirectoryComparer.hpp
-├── FileScanner.hpp
-└── structs/
-    ├── ComparisonEntry.hpp
-    ├── ComparisonStatus.hpp
-    ├── FileInfo.hpp
-    └── FileType.hpp
-
-src/
-├── DirectoryComparer.cpp
-├── FileScanner.cpp
-└── main.cpp
-```
-
-## Build
-
-```bash
-make
-```
-
-or
-
-```bash
-make build
-```
-
-## Run
-
-```bash
-make run
-```
-
-## Implemented Features
-
-* File scanning
-* Directory comparison
-* Detection of added files
-* Detection of removed files
-* Detection of unchanged files
-
-## License
-
-This project is for learning and experimentation.
+.
+├── CMakeLists.txt
+├── Makefile
+├── core/
+├── common/
+├── gui/
+├── docs/
+└── README.md
