@@ -1,27 +1,27 @@
 cmake_minimum_required(VERSION 3.16)
-project(FileSyncBoost CXX)
+
+project(FileSyncBoost LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTOMOC ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(Boost REQUIRED COMPONENTS filesystem thread)
+find_package(OpenSSL REQUIRED)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 
-include_directories(include)
-set(SOURCES
-    src/main.cpp
-    src/FileScanner.cpp
-    src/DirectoryComparer.cpp
+add_subdirectory(common)
+add_subdirectory(core)
+add_subdirectory(gui)
+
+add_executable(FileSync
+    src/main.cpp"
 )
 
-add_executable(FileSyncBoost ${SOURCES})
-
-target_include_directories(FileSyncBoost PRIVATE
-    include
-)
-
-target_link_libraries(FileSyncBoost PRIVATE
-    Boost::filesystem
-    Boost::thread
+target_link_libraries(FileSync
+PRIVATE
+    FileSyncCore
+    FileSyncGui
 )

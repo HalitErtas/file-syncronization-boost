@@ -1,4 +1,5 @@
-#include "structs/FileType.hpp"
+#include "DirectoryComparer.hpp"
+#include "FileType.hpp"
 #include <FileScanner.hpp>
 #include <filesystem>
 #include <vector>
@@ -6,8 +7,8 @@
 
 namespace fs = std::filesystem;
 
-namespace file_sync_app {
-    std::vector<structs::FileInfo> FileScanner::scan(const fs::path& path, structs::FileType type){
+namespace file_sync_app::core {
+    std::vector<common::FileInfo> core::FileScanner::scan(const fs::path& path, common::FileType type){
         if(!fs::exists(path)){
             throw std::runtime_error("Directory not found.");
         }
@@ -16,16 +17,18 @@ namespace file_sync_app {
             throw std::runtime_error("is not a directory");
         }
 
-        std::vector<structs::FileInfo> files{};
-        for(const auto& file : fs::directory_iterator(path)){
-            structs::FileInfo element;
+        file_sync_app::core::DirectoryComparer comparer;
+        std::vector<common::FileInfo> files{};
+        for(const auto& file : fs::recursive_directory_iterator(path)){
+            common::FileInfo element;
             const bool isDirectory = file.is_directory();
 
-            element.path = file.path().filename();
+            element.path = fs::relative(file.path(), path);
             element.name = file.path().filename();
             element.size = isDirectory ? 0 : file.file_size();;
             element.isDirectory = isDirectory;
             element.lastWriteTime = file.last_write_time();
+            element.sha256 = comparer.computeSHA256(file.path()); 
 
 
             if (shouldAdd(element, type))
@@ -37,17 +40,17 @@ namespace file_sync_app {
         return files;
     }
 
-    bool FileScanner::shouldAdd(const structs::FileInfo& info, structs::FileType type)
+    bool core::FileScanner::shouldAdd(const common::FileInfo& info, common::FileType type)
     {
         switch (type)
         {
-            case structs::FileType::FILE:
+            case common::FileType::FILE:
                 return !info.isDirectory;
 
-            case structs::FileType::DIRECTORY:
+            case common::FileType::DIRECTORY:
                 return info.isDirectory;
 
-            case structs::FileType::ALL:
+            case common::FileType::ALL:
                 return true;
         }
 

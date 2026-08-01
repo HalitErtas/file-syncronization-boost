@@ -1,0 +1,22 @@
+add_library(FileSyncGui 
+    src/MainWindow.cpp
+    src/Formatter.cpp
+    src/CompareWorker.cpp
+    src/widgets/ComparisonTable.cpp
+    src/widgets/PathSelector.cpp
+    include/CompareWorker.hpp
+    include/MainWindow.hpp
+    include/widgets/ComparisonTable.hpp
+    include/widgets/PathSelector.hpp
+)
+
+target_include_directories(FileSyncGui PUBLIC 
+    include
+)
+
+target_link_libraries(FileSyncGui
+PUBLIC
+    FileSyncCommon
+    FileSyncCore
+    Qt6::Widgets
+)

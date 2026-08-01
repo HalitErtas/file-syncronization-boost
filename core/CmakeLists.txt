@@ -1,0 +1,20 @@
+add_library(FileSyncCore
+    src/FileScanner.cpp
+    src/DirectoryComparer.cpp
+    src/SyncEngine.cpp
+    src/FileSynchronizer.cpp
+)
+
+target_include_directories(FileSyncCore
+PUBLIC
+    include
+)
+
+target_link_libraries(FileSyncCore
+PUBLIC
+    FileSyncCommon
+    Boost::filesystem
+    Boost::thread
+    OpenSSL::SSL
+    OpenSSL::Crypto
+)

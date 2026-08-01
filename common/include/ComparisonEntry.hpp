@@ -1,10 +1,10 @@
 #ifndef COMPARISONENTRY_H_
 #define COMPARISONENTRY_H_
 
-#include "structs/ComparisonStatus.hpp"
-#include "structs/FileInfo.hpp"
+#include "ComparisonStatus.hpp"
+#include "FileInfo.hpp"
 
-namespace file_sync_app::structs {
+namespace file_sync_app::common {
     
 struct ComparisonEntry 
 {
@@ -12,6 +12,6 @@ struct ComparisonEntry
     ComparisonStatus status;
 };
 
-} // namespace file_sync_app::structs
+} // namespace file_sync_app::common
 
 #endif  
